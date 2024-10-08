@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>{{block "title" .}}Rangi{{end}}</title>
+        <link href="/admin/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        {{block "navbar" .}}{{end}}
+        {{block "content" .}}{{end}}
+        <script src="/admin/static/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/admin/static/htmx/htmx.min.js"></script>
+    </body>
+</html>

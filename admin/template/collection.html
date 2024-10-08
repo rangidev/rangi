@@ -1,0 +1,23 @@
+{{define "title"}}Rangi Dashboard{{end}}
+{{define "content"}}
+<div class="container-fluid">
+    <a href="/admin/edit/{{.collection}}/new" class="btn btn-lg btn-primary">Create New</a>
+    {{block "list" .}}
+        {{range initial .items}}
+            <div class="row align-items-center m-3">
+                <a href="/admin/edit/{{.collection}}/{{.id}}">{{.title}}</a>
+            </div>
+        {{end}}
+        {{$last := last .items}}
+        {{if $last}}
+            {{$newOffset := len .items}}
+            {{if $.offset}}
+                {{$newOffset = len .items | add $.offset}}
+            {{end}}
+            <div hx-trigger="revealed" hx-get="/admin/{{.collection}}/items?limit={{$.limit}}&offset={{$newOffset}}" hx-swap="afterend" class="row align-items-center m-3 last">
+                <a href="/admin/edit/{{$last.collection}}/{{$last.id}}">{{$last.title}}</a>
+            </div>
+        {{end}}
+    {{end}}
+</div>
+{{end}}

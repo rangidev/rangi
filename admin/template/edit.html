@@ -1,0 +1,18 @@
+{{define "title"}}Rangi Dashboard{{end}}
+{{define "content"}}
+<div class="container-fluid">
+    <form class="p-4 p-md-5 border rounded-3" {{if .item.id}}hx-put{{else}}hx-post{{end}}="/admin/{{.collection}}/items">
+        {{range .blueprint.Fields}}
+            {{if not .Hidden}}
+                <div class="form-floating mb-3">
+                    <input type="{{.Type.HTMLInputType}}" name="{{.Name}}" class="form-control" id="{{.Name}}" placeholder="Fill me" value="{{index $.item .Name}}">
+                    <label for="{{.Name}}">{{.DisplayName}}</label>
+                </div>
+            {{else}}
+            <input type="hidden" name="{{.Name}}" id="{{.Name}}" value="{{index $.item .Name}}">
+            {{end}}
+        {{end}}
+        <button class="btn btn-lg btn-primary" type="submit">Save</button>
+    </form>
+</div>
+{{end}}

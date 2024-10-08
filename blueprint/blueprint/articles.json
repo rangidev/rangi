@@ -1,0 +1,26 @@
+{
+    "collection_display_name": "Articles",
+    "collection_name": "articles",
+    "fields": [
+        {
+            "name": "slug",
+            "display_name": "Slug",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "authors",
+            "display_name": "Authors",
+            "type": "reference",
+            "reference": {
+                "collection": "authors",
+                "max_references": -1
+            }
+        },
+        {
+            "name": "content",
+            "display_name": "Content",
+            "type": "array"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "collection_display_name": "Authors",
+    "collection_name": "authors",
+    "fields": [
+        {
+            "name": "email",
+            "display_name": "Email address",
+            "type": "string"
+        },
+        {
+            "name": "biography",
+            "display_name": "Biography",
+            "type": "string"
+        }
+    ]
+}
