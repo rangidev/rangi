@@ -5,7 +5,8 @@
         {{range .blueprint.Fields}}
             {{if not .Hidden}}
                 <div class="form-floating mb-3">
-                    <input type="{{.Type.HTMLInputType}}" name="{{.Name}}" class="form-control" id="{{.Name}}" placeholder="Fill me" value="{{index $.item .Name}}">
+                    {{.Type.EditComponent . $.item}}
+
                     <label for="{{.Name}}">{{.DisplayName}}</label>
                 </div>
             {{else}}
@@ -15,4 +16,5 @@
         <button class="btn btn-lg btn-primary" type="submit">Save</button>
     </form>
 </div>
+<script src="/admin/static/editor/editor.js"></script>
 {{end}}

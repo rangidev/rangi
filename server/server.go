@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/schema"
 
 	"github.com/rangidev/rangi/admin"
-	"github.com/rangidev/rangi/collection"
+	"github.com/rangidev/rangi/blueprint"
 	"github.com/rangidev/rangi/config"
 )
 
@@ -20,7 +20,7 @@ type Server struct {
 	schemaDecoder     *schema.Decoder
 	adminTemplates    *admin.Templates
 	adminStaticServer http.Handler
-	collectionLoader  *collection.CollectionLoader
+	collectionLoader  *blueprint.CollectionLoader
 }
 
 func New(config *config.Config) (*Server, error) {
@@ -36,7 +36,7 @@ func New(config *config.Config) (*Server, error) {
 		return nil, fmt.Errorf("could not create admin static server: %v", err)
 	}
 	// Collections
-	collectionLoader := collection.NewCollectionLoader(config.BlueprintsPath)
+	collectionLoader := blueprint.NewCollectionLoader(config.BlueprintsPath)
 	collections, err := collectionLoader.GetAll()
 	if err != nil {
 		return nil, fmt.Errorf("could not get collections: %v", err)

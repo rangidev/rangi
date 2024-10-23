@@ -6,10 +6,10 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/rangidev/rangi/collection"
+	"github.com/rangidev/rangi/blueprint"
 )
 
-func (db *DB) CreateTables(collections []collection.Collection, collectionLoader *collection.CollectionLoader) error {
+func (db *DB) CreateTables(collections []blueprint.Collection, collectionLoader *blueprint.CollectionLoader) error {
 	for index := range collections {
 		err := db.CreateTable(&collections[index], collectionLoader)
 		if err != nil {
@@ -19,7 +19,7 @@ func (db *DB) CreateTables(collections []collection.Collection, collectionLoader
 	return nil
 }
 
-func (db *DB) CreateTable(collection *collection.Collection, collectionLoader *collection.CollectionLoader) error {
+func (db *DB) CreateTable(collection *blueprint.Collection, collectionLoader *blueprint.CollectionLoader) error {
 	var subStatements []string
 	// TODO: Make sure field names aren't used twice between default and blueprint fields
 	for _, fieldDef := range collection.Blueprint.Fields {
@@ -51,7 +51,7 @@ func (db *DB) CreateTable(collection *collection.Collection, collectionLoader *c
 	return err
 }
 
-func (db *DB) CreateReferenceTable(collection1 *collection.Collection, collection2 *collection.Collection) error {
+func (db *DB) CreateReferenceTable(collection1 *blueprint.Collection, collection2 *blueprint.Collection) error {
 	if collection1.Blueprint.CollectionName == "" || collection2.Blueprint.CollectionName == "" {
 		return errors.New("empty collection string")
 	}

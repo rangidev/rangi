@@ -1,5 +1,10 @@
 package blueprint
 
+import (
+	"fmt"
+	"html/template"
+)
+
 type Type string
 
 const (
@@ -14,26 +19,36 @@ const (
 )
 
 // HTMLInputType
-// used in templates to determine the input type for the admin form
-func (t Type) HTMLInputType() string {
-	switch t {
-	case TypeID:
-		return "text"
-	case TypeUUID:
-		return "text"
-	case TypeString:
-		return "text"
-	case TypeBoolean:
-		return "text"
-	case TypeInt:
-		return "text"
-	case TypeArray:
-		return "text"
-	case TypeObject:
-		return "text"
-	case TypeReference:
-		return "reference"
-	default:
-		return ""
+// used in templates to determine the WebComponent for the edit form
+func (t Type) EditComponent(blueprintField *BlueprintField, item Item) template.HTML {
+	webComponent := determinewebComponentName(blueprintField)
+	return template.HTML(fmt.Sprintf(`<%s id="%s">%v</%s>`, webComponent, blueprintField.Name, item[blueprintField.Name], webComponent))
+}
+
+func determinewebComponentName(blueprintField *BlueprintField) string {
+	// Special cases first
+	switch blueprintField.Name {
+	case KeyTitle:
+		return "rangi-title"
 	}
+	// Determine by Type
+	switch blueprintField.Type {
+	case TypeID:
+		return "rangi-text"
+	case TypeUUID:
+		return "rangi-text"
+	case TypeString:
+		return "rangi-text"
+	case TypeBoolean:
+		return "rangi-text"
+	case TypeInt:
+		return "rangi-text"
+	case TypeArray:
+		return "rangi-text"
+	case TypeObject:
+		return "rangi-text"
+	case TypeReference:
+		return "rangi-reference"
+	}
+	return "rangi-text"
 }

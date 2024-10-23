@@ -10,8 +10,6 @@ import (
 
 	"github.com/rangidev/rangi/admin"
 	"github.com/rangidev/rangi/blueprint"
-	"github.com/rangidev/rangi/collection"
-	"github.com/rangidev/rangi/item"
 )
 
 type getItemsQueryParams struct {
@@ -122,7 +120,7 @@ func (s *Server) GetAdminEdit(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	item := make(item.Item)
+	item := make(blueprint.Item)
 	if id != "new" {
 		// Get item
 		item, err = s.config.DatabaseInstance.GetItem(collectionData, id)
@@ -159,7 +157,7 @@ func (s *Server) PostAdminItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Create item
-	item, err := item.New(collectionData)
+	item, err := blueprint.NewItem(collectionData)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("could not create new item: %v", err), http.StatusInternalServerError)
 		return
@@ -198,7 +196,7 @@ func (s *Server) PutAdminItem(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Create item
-	item := item.Item{}
+	item := blueprint.Item{}
 	for _, field := range collectionData.Blueprint.Fields {
 		if field.Name == blueprint.KeyUUID || field.Name == blueprint.KeyCollection {
 			// Do not update field in database
@@ -267,7 +265,7 @@ func (s *Server) GetAdminItems(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (s *Server) getCollection(r *http.Request) (*collection.Collection, error) {
+func (s *Server) getCollection(r *http.Request) (*blueprint.Collection, error) {
 	collection := chi.URLParam(r, "collection")
 	if collection == "" {
 		return nil, errors.New("missing 'collection' path parameter")

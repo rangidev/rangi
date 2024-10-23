@@ -5,11 +5,9 @@ import (
 	"time"
 
 	"github.com/rangidev/rangi/blueprint"
-	"github.com/rangidev/rangi/collection"
-	"github.com/rangidev/rangi/item"
 )
 
-func (db *DB) CreateItem(collection *collection.Collection, item item.Item) error {
+func (db *DB) CreateItem(collection *blueprint.Collection, item blueprint.Item) error {
 	// Set updated_at field
 	item[blueprint.KeyUpdatedAt] = time.Now().Unix()
 	statementStart := fmt.Sprintf("INSERT INTO %s (", collection.Blueprint.CollectionName)
@@ -38,7 +36,7 @@ func (db *DB) CreateItem(collection *collection.Collection, item item.Item) erro
 	return err
 }
 
-func (db *DB) UpdateItem(collection *collection.Collection, item item.Item) error {
+func (db *DB) UpdateItem(collection *blueprint.Collection, item blueprint.Item) error {
 	// Set updated_at field
 	item[blueprint.KeyUpdatedAt] = time.Now().Unix()
 	statementStart := fmt.Sprintf("UPDATE %s SET (", collection.Blueprint.CollectionName)

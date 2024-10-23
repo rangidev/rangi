@@ -1,6 +1,4 @@
-package collection
-
-import "github.com/rangidev/rangi/blueprint"
+package blueprint
 
 var (
 	defaultCollections = []string{
@@ -10,7 +8,7 @@ var (
 )
 
 type Collection struct {
-	Blueprint *blueprint.Blueprint
+	Blueprint *Blueprint
 }
 
 type CollectionLoader struct {
@@ -27,7 +25,7 @@ func (cl *CollectionLoader) GetAll() ([]Collection, error) {
 	// TODO: Cache collections
 	var collections []Collection
 	for _, defaultCollection := range defaultCollections {
-		blueprint, err := blueprint.Load(defaultCollection, cl.blueprintsPath)
+		blueprint, err := LoadBlueprint(defaultCollection, cl.blueprintsPath)
 		if err != nil {
 			return nil, err
 		}
@@ -45,7 +43,7 @@ func (cl *CollectionLoader) Get(name string) (*Collection, error) {
 }
 
 func getCollection(name string, blueprintsPath string) (*Collection, error) {
-	blueprint, err := blueprint.Load(name, blueprintsPath)
+	blueprint, err := LoadBlueprint(name, blueprintsPath)
 	if err != nil {
 		return nil, err
 	}

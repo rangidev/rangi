@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/Masterminds/sprig/v3"
-	"github.com/rangidev/rangi/collection"
+	"github.com/rangidev/rangi/blueprint"
 	"github.com/rangidev/rangi/config"
 )
 
@@ -71,7 +71,7 @@ func NewTemplates(config *config.Config) (*Templates, error) {
 
 // Render
 // subTemplateName defines the sub template that should be executed (e. g. a "block" defined in the template string to render only a part of the original template). May be an empty string.
-func (t *Templates) Render(w http.ResponseWriter, data TemplateData, templateDef *TemplateDefinition, collectionLoader *collection.CollectionLoader, subTemplateName string) error {
+func (t *Templates) Render(w http.ResponseWriter, data TemplateData, templateDef *TemplateDefinition, collectionLoader *blueprint.CollectionLoader, subTemplateName string) error {
 	// Always re-read templates in development mode
 	// Otherwise cache the templates
 	if _, ok := t.templates[templateDef.name]; !ok || t.config.EnableTemplateDevelopment {

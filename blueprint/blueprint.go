@@ -11,14 +11,6 @@ import (
 	"github.com/rangidev/rangi/sql"
 )
 
-const (
-	KeyID         = "id"
-	KeyUUID       = "uuid"
-	KeyCollection = "collection"
-	KeyTitle      = "title"
-	KeyUpdatedAt  = "updated_at"
-)
-
 var (
 	//go:embed blueprint
 	blueprintFS embed.FS
@@ -83,7 +75,7 @@ type BlueprintReference struct {
 	MaxReferences int    `json:"max_references"` // -1 means infinite references allowed
 }
 
-func Load(collectionName string, blueprintsPath string) (*Blueprint, error) {
+func LoadBlueprint(collectionName string, blueprintsPath string) (*Blueprint, error) {
 	filename := collectionName + ".json"
 	// Try directory on disk first
 	// If found, it will overwrite the embedded blueprint
