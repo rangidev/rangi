@@ -1,24 +1,40 @@
 {{define "title"}}Rangi Login{{end}}
 {{define "content"}}
-<div class="container">
-    <div class="row align-items-center m-5">
-        <div class="col-lg-7 text-center text-lg-start">
-            <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Rangi Admin</h1>
-            <p class="col-lg-10 fs-4">Sign in here to start editing your posts. ❤️</p>
-        </div>
-        <div class="col-md-10 mx-auto col-lg-5">
-            <form class="p-4 p-md-5 border rounded-3" hx-post="/admin/login">
-                <div class="form-floating mb-3">
-                    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="name@example.com">
-                    <label for="inputEmail">Email address</label>
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns is-vcentered is-centered">
+                <div class="column is-5">
+                    <p class="title">Rangi Admin</p>
+                    <p class="subtitle">Sign in here to start editing your posts. ❤️</p>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
-                    <label for="inputPassword">Password</label>
+                <div class="column is-5">
+                    <form hx-post="/admin/login">
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <input class="input" type="email" name="email" placeholder="Email">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <input class="input" type="password" name="password" placeholder="Password">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                <button class="button is-success" type="submit">Sign in</button>
+                            </p>
+                        </div>
+                    </form>
                 </div>
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+</section>
 {{end}}

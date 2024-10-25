@@ -1,30 +1,45 @@
 {{define "navbar"}}
-<nav class="navbar navbar-expand-lg" aria-label="Fifth navbar example">
-    <div class="container-fluid">
-        <a class="navbar-brand">Rangi</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarsExample05">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link{{if eq ._internalTemplateName `dashboard.html`}} active{{end}}" href="/admin/dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle{{if eq ._internalTemplateName `collection.html`}} active{{end}}" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Collections
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item {{if eq ._internalTemplateName `dashboard.html`}} is-selected{{end}}" href="/admin/dashboard">Dashboard</a>
+                <div class="navbar-item has-dropdown is-hoverable {{if eq ._internalTemplateName `collection.html`}} is-selected{{end}}">
+                    <a class="navbar-link">Collections</a>
+                    <div class="navbar-dropdown">
                         {{range ._internalAllCollections}}
-                            <li><a class="dropdown-item{{if eq $.collection .Blueprint.CollectionName}} active{{end}}" href="/admin/collections/{{.Blueprint.CollectionName}}">{{.Blueprint.CollectionDisplayName}}</a></li>
+                            <a class="navbar-item {{if eq $.collection .Blueprint.CollectionName}} is-selected{{end}}" href="/admin/collections/{{.Blueprint.CollectionName}}">{{.Blueprint.CollectionDisplayName}}</a>
                         {{end}}
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link{{if eq ._internalTemplateName `settings.html`}} active{{end}}" href="/admin/settings">Settings</a>
-                </li>
-            </ul>
+                    </div>
+                </div>
+                <a class="navbar-item {{if eq ._internalTemplateName `settings.html`}} is-selected{{end}}" href="/admin/settings">Settings</a>
+            </div>
         </div>
     </div>
 </nav>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            });
+        });
+    });
+</script>
 {{end}}
